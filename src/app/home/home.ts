@@ -97,12 +97,117 @@ export class Home {
           .subscribe((res: any) => {
             this.cdr.detectChanges();
 
+            const arreglo_data: any[] = [];
+            for (const paquete of res.data[0].listado_paquetes) {
+              let estado_option =
+                '                  <option value="REGISTRADO">REGISTRADO</option>' +
+                '                  <option value="EN_TRANSITO">EN_TRANSITO</option>' +
+                '                  <option value="ENTREGADO">ENTREGADO</option>' +
+                '                  <option value="DEVUELTO">DEVUELTO</option>';
+              if (paquete.estado === 'REGISTRADO') {
+                estado_option =
+                  '                  <option value="REGISTRADO" selected>REGISTRADO</option>' +
+                  '                  <option value="EN_TRANSITO">EN_TRANSITO</option>' +
+                  '                  <option value="ENTREGADO">ENTREGADO</option>' +
+                  '                  <option value="DEVUELTO">DEVUELTO</option>';
+              } else if (paquete.estado === 'EN_TRANSITO') {
+                estado_option =
+                  '                  <option value="REGISTRADO">REGISTRADO</option>' +
+                  '                  <option value="EN_TRANSITO" selected>EN_TRANSITO</option>' +
+                  '                  <option value="ENTREGADO">ENTREGADO</option>' +
+                  '                  <option value="DEVUELTO">DEVUELTO</option>';
+              } else if (paquete.estado === 'ENTREGADO') {
+                estado_option =
+                  '                  <option value="REGISTRADO">REGISTRADO</option>' +
+                  '                  <option value="EN_TRANSITO">EN_TRANSITO</option>' +
+                  '                  <option value="ENTREGADO" selected>ENTREGADO</option>' +
+                  '                  <option value="DEVUELTO">DEVUELTO</option>';
+              } else if (paquete.estado === 'DEVUELTO') {
+                estado_option =
+                  '                  <option value="REGISTRADO">REGISTRADO</option>' +
+                  '                  <option value="EN_TRANSITO">EN_TRANSITO</option>' +
+                  '                  <option value="ENTREGADO">ENTREGADO</option>' +
+                  '                  <option value="DEVUELTO" selected>DEVUELTO</option>';
+              }
+
+              arreglo_data.push({
+                id: paquete.id,
+                codigo_guia: paquete.codigo_guia,
+                destinatario: paquete.destinatario,
+                ciudad_destino: paquete.ciudad_destino,
+                peso_kg: paquete.peso_kg,
+                estado: paquete.estado,
+                creado_en: paquete.creado_en,
+                acciones:
+                  '<div class="dropdown d-inline-block">' +
+                  '  <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">' +
+                  '    <i class="ri-more-fill align-middle"></i>' +
+                  '  </button>' +
+                  '  <ul class="dropdown-menu dropdown-menu-end">' +
+                  '    <li>' +
+                  '      <a href="/ver_paquete/' + paquete.id + '" class="dropdown-item">' +
+                  '        <i class="ri-file-pdf-fill align-bottom me-2 text-muted"></i>Ver' +
+                  '      </a>' +
+                  '   </li>' +
+                  '    <li>' +
+                  '      <button type="button" class="dropdown-item remove-item-btn" data-bs-toggle="modal" data-bs-target=".actualizar-estado-modal-xl-' + paquete.id + '">' +
+                  '        <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>Actualizar Estado' +
+                  '      </button>' +
+                  '    </li>' +
+                  '  </ul>' +
+                  '</div>' +
+                  '<div class="modal fade actualizar-estado-modal-xl-' + paquete.id + '" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">' +
+                  '  <div class="modal-dialog modal-xl">' +
+                  '    <div class="modal-content">' +
+                  '      <form id="form_actualizar_estado_paquete" method="POST">' +
+                  '        <div class="modal-header">' +
+                  '          <h5 class="modal-title" id="myExtraLargeModalLabel">Actualizar Estado del Paquete</h5>' +
+                  '            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
+                  '        </div>' +
+                  '        <div class="modal-body">' +
+                  '          <p>Por favor, seleccione el nuevo Estado del Paquete</p>' +
+                  '          <div class="row g-3">' +
+                  '            <div class="col-xxl-4 col-sm-12 input-group-lg">' +
+                  '              <div class="form-line">' +
+                  '                <label for="cambio_estado" class="col-form-label">Ver por Estado</label>' +
+                  '                <select id="cambio_estado" name="cambio_estado" class="form-select validate" required>' +
+                  estado_option +
+                  '                </select>' +
+                  '              </div>' +
+                  '            </div>' +
+                  '          </div>' +
+                  '        </div>' +
+                  '        <div class="modal-footer">' +
+                  '          <a href="javascript:void(0);" class="btn btn-link link-danger shadow-none fw-medium" data-bs-dismiss="modal">' +
+                  '            <i class="ri-close-line me-1 align-middle"></i>No' +
+                  '          </a>' +
+                  '          <button type="button" class="btn btn-success waves-effect waves-light button-actualizar-estado">' +
+                  '            <div class="text-send">' +
+                  '              Guardar' +
+                  '            </div>' +
+                  '            <span class="d-flex align-items-center">' +
+                  '              <span class="spinner-border flex-shrink-0" role="status" style="display: none;">' +
+                  '                <span class="visually-hidden">Por favor, espere...</span>' +
+                  '              </span>' +
+                  '              <span class="flex-grow-1 ms-2" style="display: none;">' +
+                  '                Por favor, espere...' +
+                  '              </span>' +
+                  '            </span>' +
+                  '          </button>' +
+                  '        </div>' +
+                  '      </form>' +
+                  '    </div>' +
+                  '  </div>' +
+                  '</div>',
+              });
+            }
+
             if (res.statusCode === 200) {
               callback({
                 draw: Number(dataTablesParameters.draw),
                 recordsTotal: res.data[0].total_paquetes,
                 recordsFiltered: res.data[0].total_paquetes,
-                data: res.data[0].listado_paquetes,
+                data: arreglo_data,
               });
             } else {
               callback({
@@ -122,10 +227,11 @@ export class Home {
         { data: 'peso_kg' },
         { data: 'estado' },
         { data: 'creado_en' },
+        { data: 'acciones' },
       ],
       columnDefs: [
         {
-          targets: [2, 3, 4, 5, 6],
+          targets: [2, 3, 4, 5, 6, 7],
           orderable: false,
         },
         {
@@ -337,6 +443,10 @@ export class Home {
     });
   }
 
+  /**
+   * Listado de Paquetes por Estado
+   * @param event
+   */
   public paquetesPorEstado(event: Event): void {
     // this.inicializarDataTableListadoPaquetes($('#encontrar_por_estado').val());
     const element = event.target as HTMLInputElement;
