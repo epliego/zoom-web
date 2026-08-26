@@ -1,9 +1,14 @@
 <!-- Begin page -->
 <div id="layout-wrapper">
+
+  <topbar-root></topbar-root>
+  <sidebar-root></sidebar-root>
+
   <!-- ============================================================== -->
   <!-- Start right Content here -->
   <!-- ============================================================== -->
   <div class="main-content">
+
     <div class="page-content">
       <div class="container-fluid">
         <div class="row">
@@ -13,12 +18,29 @@
                 <h5 class="card-title mb-0">Listado de Paquetes</h5>
               </div>
               <div class="card-body">
-                <div class="div-button-add-member" style="text-align: center; display: none;">
-                  <button type="button" class="btn btn-success waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".add-policy-group-member-modal-xl">
+                <div style="text-align: center;">
+                  <button type="button" class="btn btn-success waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".crear-paquete-modal-xl">
                     Agregar Paquete
                   </button>
-                  <br/>
                 </div>
+
+                <div class="row">
+                  <div class="col-xxl-4 col-sm-12 input-group-lg">
+                    <div class="form-line">
+                      <label for="encontrar_por_estado" class="col-form-label">Ver por Estado</label>
+                      <select id="encontrar_por_estado" name="encontrar_por_estado" class="form-select validate" (change)="paquetesPorEstado($event)" required>
+                        <option value="">TODOS</option>
+                        <option value="REGISTRADO">REGISTRADO</option>
+                        <option value="EN_TRANSITO">EN_TRANSITO</option>
+                        <option value="ENTREGADO">ENTREGADO</option>
+                        <option value="DEVUELTO">DEVUELTO</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <br/>
+
                 <table id="js-listado-paquetes" class="display table table-bordered dt-responsive js-listado-paquetes compact" style="width:100%">
                   <thead>
                     <tr>
@@ -55,11 +77,11 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-sm-6">
-            <script>document.write(new Date().getFullYear())</script> © Eduardo Pliego
+            <script>document.write(new Date().getFullYear())</script> © Eduardo Pliego Meré
           </div>
           <div class="col-sm-6">
             <div class="text-sm-end d-none d-sm-block">
-              Desarrollado por <a href="https://eduardo-pliego-mere.vercel.app/" target="_blank">Eduardo Pliego</a>
+              Desarrollado por <a href="https://eduardo-pliego-mere.vercel.app/" target="_blank">Eduardo Pliego Meré</a>
             </div>
           </div>
         </div>
@@ -70,3 +92,76 @@
 
 </div>
 <!-- END layout-wrapper -->
+
+<!--  Extra Large modal example -->
+<div class="modal fade crear-paquete-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <form id="form_crear_paquete" method="POST">
+        <div class="modal-header">
+          <h5 class="modal-title" id="myExtraLargeModalLabel">Registrar nuevo Paquete</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-xxl-6 col-sm-12 input-group-lg">
+              <div class="form-line">
+                <label for="codigo_guia" class="col-form-label">Código Guía</label>
+                <input id="codigo_guia" name="codigo_guia" type="text" class="form-control validate" required>
+              </div>
+            </div>
+
+            <div class="col-xxl-6 col-sm-12 input-group-lg">
+              <div class="form-line">
+                <label for="destinatario" class="col-form-label">Destinatario</label>
+                <input id="destinatario" name="destinatario" type="text" class="form-control validate" required>
+              </div>
+            </div>
+
+            <div class="col-xxl-6 col-sm-12 input-group-lg">
+              <div class="form-line">
+                <label for="ciudad_destino" class="col-form-label">Ciudad destino</label>
+                <input id="ciudad_destino" name="ciudad_destino" type="text" class="form-control validate" required>
+              </div>
+            </div>
+
+            <div class="col-xxl-6 col-sm-12 input-group-lg">
+              <div class="form-line">
+                <label for="peso_kg" class="col-form-label">Peso (Kg)</label>
+                <input id="peso_kg" name="peso_kg" type="number" class="form-control validate" min="1" required>
+              </div>
+            </div>
+
+            <div class="col-xxl-6 col-sm-12 input-group-lg">
+              <div class="form-line">
+                <label for="estado" class="col-form-label">Estado</label>
+                <select id="estado" name="estado" class="form-select validate" required>
+                  <option value="REGISTRADO">REGISTRADO</option>
+                  <option value="EN_TRANSITO">EN_TRANSITO</option>
+                  <option value="ENTREGADO">ENTREGADO</option>
+                  <option value="DEVUELTO">DEVUELTO</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a href="javascript:void(0);" class="btn btn-link link-success shadow-none fw-medium" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i>Cerrar</a>
+          <button type="submit" class="btn btn-primary button-crear-paquete">
+            <div class="text-send">
+              Guardar
+            </div>
+            <span class="d-flex align-items-center">
+              <span class="spinner-border flex-shrink-0" role="status" style="display: none;">
+                <span class="visually-hidden">Por favor, espere...</span>
+              </span>
+              <span class="flex-grow-1 ms-2" style="display: none;">
+                Por favor, espere...
+              </span>
+            </span>
+          </button>
+        </div>
+      </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

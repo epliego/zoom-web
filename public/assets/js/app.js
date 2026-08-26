@@ -15,8 +15,7 @@ File: Main Js File
 	 */
 	var navbarMenuHTML = document.querySelector(".navbar-menu").innerHTML;
 	var horizontalMenuSplit = 7; // after this number all horizontal menus will be moved in More menu options
-	//var default_lang = "en"; // set Default Language
-	var default_lang = "sp"; // set Default Language
+	var default_lang = "en"; // set Default Language
 	var language = localStorage.getItem("language");
 
 	function initLanguage() {
@@ -35,7 +34,7 @@ File: Main Js File
 			if (lang == "en") {
 				document.getElementById("header-lang-img").src = "/assets/images/flags/us.svg";
 			} else if (lang == "sp") {
-				document.getElementById("header-lang-img").src = "/assets/images/flags/ve.svg";
+				document.getElementById("header-lang-img").src = "/assets/images/flags/spain.svg";
 			} else if (lang == "gr") {
 				document.getElementById("header-lang-img").src = "/assets/images/flags/germany.svg";
 			} else if (lang == "it") {
@@ -63,7 +62,7 @@ File: Main Js File
 		request.open("GET", "/assets/lang/" + language + ".json");
 		// Defining event listener for readystatechange event
 		request.onreadystatechange = function () {
-			// Check if the request is complete and was successful
+			// Check if the request is compete and was successful
 			if (this.readyState === 4 && this.status === 200) {
 				var data = JSON.parse(this.responseText);
 				Object.keys(data).forEach(function (key) {
@@ -771,7 +770,7 @@ File: Main Js File
 				document.body.classList.remove("vertical-sidebar-enable");
 				document.documentElement.getAttribute("data-sidebar-size") == "sm" ?
 					document.documentElement.setAttribute("data-sidebar-size", "") :
-					document.documentElement.setAttribute("data-sidebar-size", "sm");				
+					document.documentElement.setAttribute("data-sidebar-size", "sm");
 			} else if (windowSize > 1025) {
 				document.body.classList.remove("vertical-sidebar-enable");
 				document.documentElement.getAttribute("data-sidebar-size") == "lg" ?
@@ -918,11 +917,10 @@ File: Main Js File
 	// two-column sidebar active js
 	function initActiveMenu() {
 		var currentPath = location.pathname == "/" ? "/" : location.pathname.substring(1);
-		// currentPath = (currentPath == "/") ? "/" : currentPath.substring(currentPath.lastIndexOf("/") + 1);
-		currentPath = (currentPath == "/") ? "/" : location.pathname.substring(1);
+		currentPath = (currentPath == "/") ? "/" : currentPath.substring(currentPath.lastIndexOf("/") + 1);
 		if (currentPath) {
 			// navbar-nav
-			var a = document.getElementById("navbar-nav").querySelector('[href="' + base_url + currentPath + '"]');
+			var a = document.getElementById("navbar-nav").querySelector('[href="' + currentPath + '"]');
 			if (a) {
 				a.classList.add("active");
 				var parentCollapseDiv = a.closest(".collapse.menu-dropdown");
@@ -1677,7 +1675,7 @@ File: Main Js File
 							document.documentElement.setAttribute("data-body-image", "img-1");
 
 							if (document.getElementById("theme-settings-offcanvas")) {
-								if (document.getElementById("sidebar-img")) { 
+								if (document.getElementById("sidebar-img")) {
 									document.getElementById("sidebar-img").style.display = "none";
 									document.documentElement.removeAttribute("data-sidebar-image");
 								}

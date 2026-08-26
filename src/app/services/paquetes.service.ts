@@ -7,6 +7,14 @@ import { Injectable } from '@angular/core';
 export class PaquetesService {
   constructor(private http: HttpClient) {}
 
+  /**
+   * Obtener los paquetes desde la API
+   * @param estado
+   * @param offset
+   * @param search
+   * @param limit
+   * @param order
+   */
   public obtenerPaquetes(
     estado: string = '',
     offset: string,
@@ -26,5 +34,13 @@ export class PaquetesService {
         '&order=' +
         order,
     );
+  }
+
+  /**
+   * Crear un nuevo paquete
+   * @param payload
+   */
+  public crearPaquete(payload: any) {
+    return this.http.post('http://localhost:3000/api/paquetes', payload);
   }
 }
