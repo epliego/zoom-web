@@ -8,7 +8,7 @@ export class PaquetesService {
   constructor(private http: HttpClient) {}
 
   /**
-   * Obtener los paquetes desde la API
+   * Obtener los Paquetes desde la API
    * @param estado
    * @param offset
    * @param search
@@ -37,10 +37,19 @@ export class PaquetesService {
   }
 
   /**
-   * Crear un nuevo paquete
+   * Crear un nuevo Paquete
    * @param payload
    */
   public crearPaquete(payload: any) {
     return this.http.post('http://localhost:3000/api/paquetes', payload);
+  }
+
+  /**
+   * Actualiza Estado del Paquete
+   * @param payload
+   * @param estado
+   */
+  public actualizarEstadoPaquete(payload: any, estado: number) {
+    return this.http.patch('http://localhost:3000/api/paquetes/' + estado + '/estado', payload);
   }
 }

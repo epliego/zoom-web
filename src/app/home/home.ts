@@ -63,6 +63,8 @@ export class Home {
     this.inicializarDataTableListadoPaquetes(this.estado);
 
     this.formularioCrearPaquete();
+
+    this.formularioActualizarEstadoPaquete();
   }
 
   /**
@@ -148,7 +150,7 @@ export class Home {
                   '      <a href="/ver_paquete/' + paquete.id + '" class="dropdown-item">' +
                   '        <i class="ri-file-pdf-fill align-bottom me-2 text-muted"></i>Ver' +
                   '      </a>' +
-                  '   </li>' +
+                  '    </li>' +
                   '    <li>' +
                   '      <button type="button" class="dropdown-item remove-item-btn" data-bs-toggle="modal" data-bs-target=".actualizar-estado-modal-xl-' + paquete.id + '">' +
                   '        <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>Actualizar Estado' +
@@ -159,43 +161,41 @@ export class Home {
                   '<div class="modal fade actualizar-estado-modal-xl-' + paquete.id + '" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">' +
                   '  <div class="modal-dialog modal-xl">' +
                   '    <div class="modal-content">' +
-                  '      <form id="form_actualizar_estado_paquete" method="POST">' +
-                  '        <div class="modal-header">' +
-                  '          <h5 class="modal-title" id="myExtraLargeModalLabel">Actualizar Estado del Paquete</h5>' +
-                  '            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
-                  '        </div>' +
-                  '        <div class="modal-body">' +
-                  '          <p>Por favor, seleccione el nuevo Estado del Paquete</p>' +
-                  '          <div class="row g-3">' +
-                  '            <div class="col-xxl-4 col-sm-12 input-group-lg">' +
-                  '              <div class="form-line">' +
-                  '                <label for="cambio_estado" class="col-form-label">Ver por Estado</label>' +
-                  '                <select id="cambio_estado" name="cambio_estado" class="form-select validate" required>' +
+                  '      <div class="modal-header">' +
+                  '        <h5 class="modal-title" id="myExtraLargeModalLabel">Actualizar Estado del Paquete</h5>' +
+                  '          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
+                  '      </div>' +
+                  '      <div class="modal-body">' +
+                  '        <p>Por favor, seleccione el nuevo Estado del Paquete</p>' +
+                  '        <div class="row g-3">' +
+                  '          <div class="col-xxl-4 col-sm-12 input-group-lg">' +
+                  '            <div class="form-line">' +
+                  '              <label for="cambio_estado' + paquete.id + '" class="col-form-label">Ver por Estado</label>' +
+                  '              <select id="cambio_estado' + paquete.id + '" name="cambio_estado' + paquete.id + '" class="form-select validate" required>' +
                   estado_option +
-                  '                </select>' +
-                  '              </div>' +
+                  '              </select>' +
                   '            </div>' +
                   '          </div>' +
                   '        </div>' +
-                  '        <div class="modal-footer">' +
-                  '          <a href="javascript:void(0);" class="btn btn-link link-danger shadow-none fw-medium" data-bs-dismiss="modal">' +
-                  '            <i class="ri-close-line me-1 align-middle"></i>No' +
-                  '          </a>' +
-                  '          <button type="button" class="btn btn-success waves-effect waves-light button-actualizar-estado">' +
-                  '            <div class="text-send">' +
-                  '              Guardar' +
-                  '            </div>' +
-                  '            <span class="d-flex align-items-center">' +
-                  '              <span class="spinner-border flex-shrink-0" role="status" style="display: none;">' +
-                  '                <span class="visually-hidden">Por favor, espere...</span>' +
-                  '              </span>' +
-                  '              <span class="flex-grow-1 ms-2" style="display: none;">' +
-                  '                Por favor, espere...' +
-                  '              </span>' +
+                  '      </div>' +
+                  '      <div class="modal-footer">' +
+                  '        <a href="javascript:void(0);" class="btn btn-link link-danger shadow-none fw-medium" data-bs-dismiss="modal">' +
+                  '          <i class="ri-close-line me-1 align-middle"></i>No' +
+                  '        </a>' +
+                  '        <button type="button" class="btn btn-success waves-effect waves-light button-actualizar-estado-paquete">' +
+                  '          <div class="text-send">' +
+                  '            Guardar' +
+                  '          </div>' +
+                  '          <span class="d-flex align-items-center">' +
+                  '            <span class="spinner-border flex-shrink-0" role="status" style="display: none;">' +
+                  '              <span class="visually-hidden">Por favor, espere...</span>' +
                   '            </span>' +
-                  '          </button>' +
-                  '        </div>' +
-                  '      </form>' +
+                  '            <span class="flex-grow-1 ms-2" style="display: none;">' +
+                  '              Por favor, espere...' +
+                  '            </span>' +
+                  '          </span>' +
+                  '        </button>' +
+                  '      </div>' +
                   '    </div>' +
                   '  </div>' +
                   '</div>',
@@ -336,7 +336,7 @@ export class Home {
           .append(error);
       },
       submitHandler: function (form: HTMLFormElement) {
-        const payload = {
+        const body = {
           codigo_guia: $(form).find('[id="codigo_guia"]').val(),
           destinatario: $(form).find('[id="destinatario"]').val(),
           ciudad_destino: $(form).find('[id="ciudad_destino"]').val(),
@@ -345,7 +345,7 @@ export class Home {
         };
 
         formularioCrearPaqueteThis.paquetesService
-          .crearPaquete(payload)
+          .crearPaquete(body)
           .pipe(
             tap(() => {
               // formularioCrearPaqueteThis.isLoading = true;
@@ -452,5 +452,115 @@ export class Home {
     const element = event.target as HTMLInputElement;
     // console.log('New Value:', element.value);
     this.inicializarDataTableListadoPaquetes(element.value);
+  }
+
+  /**
+   * Formulario Actualizar Estado del Paquete
+   * @private
+   */
+  private formularioActualizarEstadoPaquete(): void {
+    const formularioActualizarEstadoPaqueteThis = this;
+
+    $('body').on('click', '.button-actualizar-estado-paquete', function (event: any) {
+      let tabla = formularioActualizarEstadoPaqueteThis.datatable_listado_paquetes
+        .row($(event.target).parents('tr'))
+        .data();
+      // console.log(tabla.id);
+      // return;
+
+      const body = {
+        estado: $('#cambio_estado' + tabla.id).val(),
+      };
+
+      formularioActualizarEstadoPaqueteThis.paquetesService
+        .actualizarEstadoPaquete(body, tabla.id)
+        .pipe(
+          tap(() => {
+            // formularioActualizarEstadoPaqueteThis.isLoading = true;
+            // console.log('beforeSend: Spinner activated, UI disabled.');
+            $('.button-actualizar-estado-paquete').attr('disabled', true);
+
+            $('.text-send').css('display', 'none');
+
+            $('.button-actualizar-estado-paquete').addClass('btn-load');
+
+            $('.spinner-border').css('display', 'block');
+            $('.flex-grow-1').css('display', 'block');
+          }),
+          tap({
+            next: (response: any) => {
+              // formularioCrearPaqueteThis.isLoading = false;
+              // console.log('Success callback: Data saved!', response);
+
+              if (response.statusCode === 200) {
+                $('.actualizar-estado-modal-xl-' + tabla.id).modal('hide');
+
+                Toastify({
+                  text: response.message,
+                  duration: 5000,
+                  position: 'center',
+                  style: {
+                    background: '#4FCBB5',
+                  },
+                }).showToast(); //Consulted (12-2023) in: https://apvarun.github.io/toastify-js/, https://github.com/apvarun/toastify-js/blob/master/README.md
+
+                formularioActualizarEstadoPaqueteThis.inicializarDataTableListadoPaquetes(
+                  formularioActualizarEstadoPaqueteThis.estado,
+                );
+              } else {
+                let message_text;
+                if (response.errors !== undefined) {
+                  message_text = response.errors.join(',\n');
+                } else {
+                  message_text = response.message;
+                }
+
+                Toastify({
+                  text: message_text,
+                  duration: 5000,
+                  position: 'center',
+                  style: {
+                    background: '#EF6548',
+                  },
+                }).showToast(); //Consulted (12-2023) in: https://apvarun.github.io/toastify-js/, https://github.com/apvarun/toastify-js/blob/master/README.md
+              }
+
+              $('.button-actualizar-estado-paquete').attr('disabled', false);
+
+              $('.text-send').css('display', 'block');
+
+              $('.button-actualizar-estado-paquete').removeClass('btn-load');
+
+              $('.spinner-border').css('display', 'none');
+              $('.flex-grow-1').css('display', 'none');
+            },
+            error: (error: any) => {
+              // formularioCrearPaqueteThis.isLoading = false;
+              // console.error('Error callback:', error);
+
+              Toastify({
+                text: 'Error: ' + error.message,
+                duration: 5000,
+                position: 'center',
+                style: {
+                  background: '#EF6548',
+                },
+              }).showToast(); //Consulted (12-2023) in: https://github.com/apvarun/toastify-js/blob/master/README.md
+
+              $('.button-actualizar-estado-paquete').attr('disabled', false);
+
+              $('.text-send').css('display', 'block');
+
+              $('.button-actualizar-estado-paquete').removeClass('btn-load');
+
+              $('.spinner-border').css('display', 'none');
+              $('.flex-grow-1').css('display', 'none');
+            },
+          }),
+        )
+        .subscribe();
+
+      return false;
+    });
   }
 }
