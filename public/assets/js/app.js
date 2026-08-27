@@ -291,7 +291,7 @@ File: Main Js File
 	// on click collapse menu
 	function isCollapseMenu() {
 		/**
-		 * Sidebar menu collapse
+		 * Footer menu collapse
 		 */
 		if (document.querySelectorAll(".navbar-nav .collapse")) {
 			var collapses = document.querySelectorAll(".navbar-nav .collapse");
@@ -1244,7 +1244,7 @@ File: Main Js File
 		}
 	}
 
-	// add listener Sidebar Hover icon on change layout from setting
+	// add listener Footer Hover icon on change layout from setting
 	function addEventListenerOnSmHoverMenu() {
 		document.getElementById("vertical-hover").addEventListener("click", function () {
 			if (document.documentElement.getAttribute("data-sidebar-size") === "sm-hover") {

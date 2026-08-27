@@ -1,8 +1,6 @@
 import { ChangeDetectorRef, Component, inject, signal } from '@angular/core';
-import { CargarRecursosService } from '../services/cargar-recursos.service';
-import { PaquetesService } from '../services/paquetes.service';
-import { Topbar } from '../partials/topbar/topbar';
-import { Sidebar } from '../partials/sidebar/sidebar';
+import { CargarRecursosService } from '../../services/cargar-recursos.service';
+import { PaquetesService } from '../../services/paquetes.service';
 import { tap } from 'rxjs/operators';
 
 const $ = (window as any).$;
@@ -29,7 +27,7 @@ const SCRIPTS_DATATABLE = [
 
 @Component({
   selector: 'home-root',
-  imports: [Topbar, Sidebar],
+  imports: [],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })

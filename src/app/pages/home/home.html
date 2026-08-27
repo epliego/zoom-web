@@ -1,99 +1,61 @@
-<!-- Begin page -->
-<div id="layout-wrapper">
-
-  <topbar-root></topbar-root>
-  <sidebar-root></sidebar-root>
-
-  <!-- ============================================================== -->
-  <!-- Start right Content here -->
-  <!-- ============================================================== -->
-  <div class="main-content">
-
-    <div class="page-content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="card">
-              <div class="card-header">
-                <h5 class="card-title mb-0">Listado de Paquetes</h5>
-              </div>
-              <div class="card-body">
-                <div style="text-align: center;">
-                  <button type="button" class="btn btn-success waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".crear-paquete-modal-xl">
-                    Agregar Paquete
-                  </button>
-                </div>
-
-                <div class="row g-3">
-                  <div class="col-xxl-4 col-sm-12 input-group-lg">
-                    <div class="form-line">
-                      <label for="encontrar_por_estado" class="col-form-label">Ver por Estado</label>
-                      <select id="encontrar_por_estado" name="encontrar_por_estado" class="form-select validate" (change)="paquetesPorEstado($event)" required>
-                        <option value="">TODOS</option>
-                        <option value="REGISTRADO">REGISTRADO</option>
-                        <option value="EN_TRANSITO">EN_TRANSITO</option>
-                        <option value="ENTREGADO">ENTREGADO</option>
-                        <option value="DEVUELTO">DEVUELTO</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-                <br/>
-
-                <table id="js-listado-paquetes" class="display table table-bordered dt-responsive js-listado-paquetes compact" style="width:100%">
-                  <thead>
-                    <tr>
-                      <th>paquete_id</th>
-                      <th>Código guía</th>
-                      <th>Destinatario</th>
-                      <th>Ciudad destino</th>
-                      <th>Peso (Kg)</th>
-                      <th>Estado</th>
-                      <th>Creado en</th>
-                      <th>Acciones</th>
-                    </tr>
-                  </thead>
-                  <tfoot>
-                    <tr>
-                      <th>paquete_id</th>
-                      <th>Código guía</th>
-                      <th>Destinatario</th>
-                      <th>Ciudad destino</th>
-                      <th>Peso (Kg)</th>
-                      <th>Estado</th>
-                      <th>Creado en</th>
-                      <th>Acciones</th>
-                    </tr>
-                  </tfoot>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+<div class="col-lg-12">
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title mb-0">Listado de Paquetes</h5>
     </div>
-    <!-- End Page-content -->
+    <div class="card-body">
+      <div style="text-align: center;">
+        <button type="button" class="btn btn-success waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".crear-paquete-modal-xl">
+          Agregar Paquete
+        </button>
+      </div>
 
-    <footer class="footer">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-sm-6">
-            <script>document.write(new Date().getFullYear())</script> © Eduardo Pliego Meré
-          </div>
-          <div class="col-sm-6">
-            <div class="text-sm-end d-none d-sm-block">
-              Desarrollado por <a href="https://eduardo-pliego-mere.vercel.app/" target="_blank">Eduardo Pliego Meré</a>
-            </div>
+      <div class="row g-3">
+        <div class="col-xxl-4 col-sm-12 input-group-lg">
+          <div class="form-line">
+            <label for="encontrar_por_estado" class="col-form-label">Ver por Estado</label>
+            <select id="encontrar_por_estado" name="encontrar_por_estado" class="form-select validate" (change)="paquetesPorEstado($event)" required>
+              <option value="">TODOS</option>
+              <option value="REGISTRADO">REGISTRADO</option>
+              <option value="EN_TRANSITO">EN_TRANSITO</option>
+              <option value="ENTREGADO">ENTREGADO</option>
+              <option value="DEVUELTO">DEVUELTO</option>
+            </select>
           </div>
         </div>
       </div>
-    </footer>
-  </div>
-  <!-- end main content-->
 
+      <br/>
+
+      <table id="js-listado-paquetes" class="display table table-bordered dt-responsive js-listado-paquetes compact" style="width:100%">
+        <thead>
+          <tr>
+            <th>paquete_id</th>
+            <th>Código guía</th>
+            <th>Destinatario</th>
+            <th>Ciudad destino</th>
+            <th>Peso (Kg)</th>
+            <th>Estado</th>
+            <th>Creado en</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th>paquete_id</th>
+            <th>Código guía</th>
+            <th>Destinatario</th>
+            <th>Ciudad destino</th>
+            <th>Peso (Kg)</th>
+            <th>Estado</th>
+            <th>Creado en</th>
+            <th>Acciones</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
 </div>
-<!-- END layout-wrapper -->
 
 <!--  Extra Large modal example -->
 <div class="modal fade crear-paquete-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
