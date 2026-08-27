@@ -291,7 +291,7 @@ File: Main Js File
 	// on click collapse menu
 	function isCollapseMenu() {
 		/**
-		 * Footer menu collapse
+		 * Sidebar menu collapse
 		 */
 		if (document.querySelectorAll(".navbar-nav .collapse")) {
 			var collapses = document.querySelectorAll(".navbar-nav .collapse");
