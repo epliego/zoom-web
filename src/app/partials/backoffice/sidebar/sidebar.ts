@@ -7,7 +7,7 @@ import { Component, signal } from '@angular/core';
   styleUrl: './sidebar.css',
 })
 export class Sidebar {
-  protected readonly title = signal('zoom-web');
+  // protected readonly title = signal('zoom-web');
 
   public async ngOnInit(): Promise<void> {}
 }

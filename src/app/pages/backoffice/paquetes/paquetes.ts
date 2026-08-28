@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, inject, signal } from '@angular/core';
-import { CargarRecursosService } from '../../services/cargar-recursos.service';
-import { PaquetesService } from '../../services/paquetes.service';
+import { CargarRecursosService } from '../../../services/cargar-recursos.service';
+import { PaquetesService } from '../../../services/paquetes.service';
 import { tap } from 'rxjs/operators';
 
 const $ = (window as any).$;
@@ -26,13 +26,13 @@ const SCRIPTS_DATATABLE = [
 ];
 
 @Component({
-  selector: 'home-root',
+  selector: 'paquetes-root',
   imports: [],
-  templateUrl: './home.html',
-  styleUrl: './home.css',
+  templateUrl: './paquetes.html',
+  styleUrl: './paquetes.css',
 })
-export class Home {
-  protected readonly title = signal('zoom-web');
+export class Paquetes {
+  protected readonly title = signal('Backoffice - Paquetes');
 
   private readonly paquetesService = inject(PaquetesService);
   private readonly cdr = inject(ChangeDetectorRef);
@@ -145,7 +145,7 @@ export class Home {
                   '  </button>' +
                   '  <ul class="dropdown-menu dropdown-menu-end">' +
                   '    <li>' +
-                  '      <a href="/ver_paquete/' + paquete.id + '" class="dropdown-item">' +
+                  '      <a href="/backoffice/ver_paquete/' + paquete.id + '" class="dropdown-item">' +
                   '        <i class="ri-file-pdf-fill align-bottom me-2 text-muted"></i>Ver' +
                   '      </a>' +
                   '    </li>' +
@@ -319,19 +319,13 @@ export class Home {
     $('#form_crear_paquete').validate({
       highlight: function (input: unknown) {
         // console.log(input as any);
-        $(input as any)
-          .parents('.form-line')
-          .addClass('error');
+        $(input as any).parents('.form-line').addClass('error');
       },
       unhighlight: function (input: unknown) {
-        $(input as any)
-          .parents('.form-line')
-          .removeClass('error');
+        $(input as any).parents('.form-line').removeClass('error');
       },
       errorPlacement: function (error: unknown, element: unknown) {
-        $(element as any)
-          .parents('.input-group-lg')
-          .append(error);
+        $(element as any).parents('.input-group-lg').append(error);
       },
       submitHandler: function (form: HTMLFormElement) {
         const body = {

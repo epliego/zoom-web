@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './ver-paquete.css',
 })
 export class VerPaquete {
-  protected readonly title = signal('zoom-web');
+  protected readonly title = signal('Backoffice - Ver Paquetes');
 
   protected readonly paqueteId = signal<number | null>(null);
   private readonly route = inject(ActivatedRoute);
