@@ -52,4 +52,21 @@ export class PaquetesService {
   public actualizarEstadoPaquete(payload: any, estado: number) {
     return this.http.patch('http://localhost:3000/api/paquetes/' + estado + '/estado', payload);
   }
+
+  /**
+   * Obtener datos de un Paquete desde la API
+   * @param paquete_id
+   */
+  public obtenerPaquete(paquete_id: string) {
+    return this.http.get('http://localhost:3000/api/paquetes/' + paquete_id);
+  }
+
+  /**
+   * Actualiza datos del Paquete
+   * @param payload
+   * @param id
+   */
+  public actualizarPaquete(payload: any, id: number) {
+    return this.http.put('http://localhost:3000/api/paquetes/' + id, payload);
+  }
 }
