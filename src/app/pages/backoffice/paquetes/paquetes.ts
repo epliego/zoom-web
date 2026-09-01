@@ -1,7 +1,8 @@
 import { ChangeDetectorRef, Component, inject, signal } from '@angular/core';
+import { tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import { CargarRecursosService } from '../../../services/cargar-recursos.service';
 import { PaquetesService } from '../../../services/paquetes.service';
-import { tap } from 'rxjs/operators';
 
 const $ = (window as any).$;
 
@@ -37,6 +38,7 @@ export class Paquetes {
   private readonly paquetesService = inject(PaquetesService);
   private readonly cdr = inject(ChangeDetectorRef);
   private readonly cargarRecursos = inject(CargarRecursosService);
+  private router = inject(Router);
 
   private datatable_listado_paquetes: any;
 
@@ -145,7 +147,7 @@ export class Paquetes {
                   '  </button>' +
                   '  <ul class="dropdown-menu dropdown-menu-end">' +
                   '    <li>' +
-                  '      <a href="/backoffice/ver_paquete/' + paquete.id + '" class="dropdown-item">' +
+                  '      <a href="javascript:void(0)" class="dropdown-item ver-paquete" data-id="' + paquete.id + '">' +
                   '        <i class="ri-file-pdf-fill align-bottom me-2 text-muted"></i>Ver' +
                   '      </a>' +
                   '    </li>' +
@@ -306,6 +308,12 @@ export class Paquetes {
           pageSize: 'LETTER',
         },
       ],
+    });
+
+    $('body').on('click', '.ver-paquete', (e: any) => {
+      const id = $(e.currentTarget).data('id');
+
+      this.router.navigate(['/backoffice/ver_paquete/' + id]);
     });
   }
 

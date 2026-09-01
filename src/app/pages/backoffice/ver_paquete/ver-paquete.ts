@@ -1,5 +1,5 @@
 import { Component, signal, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { tap } from 'rxjs/operators';
@@ -11,7 +11,7 @@ declare const Toastify: any;
 
 @Component({
   selector: 'ver-paquete-root',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './ver-paquete.html',
   styleUrl: './ver-paquete.css',
 })
